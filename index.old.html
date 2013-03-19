@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+
+		<link type="text/css" rel="stylesheet" href="css/shCore.css" />
+		<link type="text/css" rel="stylesheet" href="css/shThemeDefault.css" />
+
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/xregexp-min.js"></script>
+		<script type="text/javascript" src="js/SyntaxHighlighter/shCore.js"></script>
+		<script type="text/javascript" src="js/SyntaxHighlighter/shAutoloader.js"></script>
+		<script type="text/javascript" src="js/SyntaxHighlighter/brushes/shBrushJScript.js"></script>
+		<script type="text/javascript">
+			(function($) {
+
+				var cursor = "<span id='cursor' class='cursor'>|</span>";
+
+				$(document).ready(function() {
+					// input
+					// $('textarea#editorInput').on('keyup', function() {
+						// var text = $('textarea#editorInput').val();
+						// var preElem = $('<pre class="brush: js"><pre>').text(text);
+						// $('#container').html(preElem);
+						// SyntaxHighlighter.highlight({}, $('#container pre')[0]);
+						// updateCursor();
+					// });
+// 					
+					// $('textarea#editorInput').on('keydown',function(){
+						// updateCursor();
+					// });
+// 					
+					// $('div#editor').on('keypress',function(event){
+						// // console.log(event);
+						// var charactor = String.fromCharCode(event.charCode);
+						// var text = $('textarea#editorInput').val() + charactor;
+						// $('textarea#editorInput').val(text);
+						// var preElem = $('<pre class="brush: js"><pre>').text(text);
+						// $('#container').html(preElem);
+						// SyntaxHighlighter.highlight({}, $('#container pre')[0]);
+					// });
+// 					
+					// $("div#container").on('input', function() {
+						// // console.log($("div#container").text());
+						// // console.log($("div#container").html());
+						// var text = $("div#container").html();
+						// text = text.replace("</div>","").replace("<div>","\n");
+						// console.log(text);
+						// // SyntaxHighlighter.highlight({},$('<pre class="brush: js"><pre>').text(text)[0]);
+					// });
+					
+					SyntaxHighlighter.highlight({},$('#container pre')[0]);
+				});
+
+				function updateCursor() {
+					$('span#cursor').remove();
+					var target = $('#editorInput').prop('selectionStart');
+					var charCount = 0;
+					$('.line code').each(function(i, elem) {
+						var len = elem.innerHTML.length;
+						if ((charCount + len) >= target) {
+							var index = target - charCount;
+							var text = elem.innerHTML;
+							var newText = text.slice(0, index) + cursor + text.slice(index);
+							elem.innerHTML = newText;
+							return false;
+						} else {
+							charCount += len + 1;
+						}
+					});
+				}
+
+			})(jQuery);
+		</script>
+	</head>
+	<body>
+		<div id="editor" contenteditable="true">test</div>
+		<div id="container">
+			<pre class="brush: js">var tmp;</pre>
+		</div>
+		<textarea id="editorInput" style="width: 100%; height: 200px;"></textarea>
+	</body>
+</html>
