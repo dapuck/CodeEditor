@@ -24,17 +24,19 @@ define('models/TextFile',[
 				// we will just assume that we have been passed
 				// the File object 
 				var file = attrib.file;
-				var reader = new FielReader();
+				var reader = new FileReader();
 				this.set('file', file);
-				var ext = /\.[^.]+$/.exec(file.name) || "";
-				this.set('fileExt', ext);
+				var ext = /\.[^.]+$/.exec(file.name) || [""];
+				this.set('fileExt', ext[0]);
 				reader.onload = _.bind(function(file, event) {
 					var text = event.target.result;
 					this.set('text',text);
 					this.set('_fileReady', true);
+					console.log('loaded');
 				}, this, file);
 				reader.onprogress = _.bind(function(file,progress){
 					this.trigger('progress',progress);
+					console.log('loading');
 				}, this, file);
 				reader.readAsText(file);
 			}
