@@ -42,8 +42,8 @@ define('models/TextFile',[
 			}
 		},
 		
-		sync: function() {
-			
+		sync: function(method, model, options) {
+			console.log("method: %s, model: %o, options: %o",method,model,options);
 		}
 	});
 });
