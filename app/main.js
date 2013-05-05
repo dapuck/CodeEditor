@@ -33,7 +33,12 @@ require.config({
 			deps: ['codemirror/lib/codemirror']
 		},
 		'cmmode/htmlmixed/htmlmixed': {
-			deps: ['codemirror/lib/codemirror']
+			deps: [
+				'codemirror/lib/codemirror',
+				'cmmode/javascript/javascript',
+				'cmmode/xml/xml',
+				'cmmode/css/css'
+			]
 		},
 		'cmmode/javascript/javascript': {
 			deps: ['codemirror/lib/codemirror']
