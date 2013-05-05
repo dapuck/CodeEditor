@@ -15,7 +15,8 @@ define('views/Toolbar', [
 		
 		events: {
 			'click #newFile': 'newFile',
-			'click #openFile': 'openFile'
+			'click #openFile': 'openFile',
+			'click #saveFile': 'saveFile'
 		},
 
 		initialize: function() {
@@ -46,6 +47,10 @@ define('views/Toolbar', [
 				});
 				popup.close();
 			});
+		},
+		
+		saveFile: function() {
+			
 		}
 	};
 	return Backbone.View.extend(ToolBar);
