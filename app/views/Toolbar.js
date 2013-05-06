@@ -40,6 +40,7 @@ define('views/Toolbar', [
 			var mdl = new TextFile({fileExt:".js"}, {newFile: true});
 			this.openFiles.add(mdl);
 			var editor = new Editor({model: mdl, el: $('#editor')[0]});
+			this.editors.push(editor);
 		},
 		
 		openFile: function() {
@@ -50,9 +51,10 @@ define('views/Toolbar', [
 				var file = evt.target.files[0];
 				var mdl = new TextFile({'file':file});
 				this.openFiles.add(mdl);
-				mdl.on('change:_fileReady',function() {
+				mdl.on('change:_fileReady',_.bind(function() {
 					var editor = new Editor({model:mdl, el: $('#editor')[0]});
-				});
+					this.editors.push(editor);
+				},this));
 				popup.close();
 			},this));
 		},
@@ -62,7 +64,7 @@ define('views/Toolbar', [
 		},
 		
 		saveAll: function() {
-			this.openFiles.invoke('save');
+			_.invoke(this.editors, 'save');
 		}
 	};
 	return Backbone.View.extend(ToolBar);

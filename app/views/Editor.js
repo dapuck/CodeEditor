@@ -21,6 +21,11 @@ define('views/Editor', [
 			}, this));
 		},
 		
+		save: function() {
+			this.model.set('text',this._codeMirror.getValue());
+			this.model.save();
+		},
+		
 		_loadModeForModel: function(success) {
 			switch(this.model.get('fileExt')) {
 				case ".js":

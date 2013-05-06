@@ -1,3 +1,11 @@
+/**
+ * function normalization 
+ */
+window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+
+/**
+ * require.js configuration
+ */
 require.config({
 	paths: {
 		'jQuery': 'libs/jquery-1.9.1.min',
@@ -21,6 +29,9 @@ require.config({
 		},
 		'codemirror/lib/codemirror': {
 			exports:'CodeMirror'
+		},
+		'libs/FileSaver': {
+			exports:'saveAs'
 		},
 		// modes
 		'cmmode/clojure/clojure': {

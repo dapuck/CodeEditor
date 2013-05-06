@@ -1,8 +1,9 @@
 define('models/TextFile',[
 	'jQuery',
 	'underscore',
-	'backbone'
-], function ($, _, Backbone){
+	'backbone',
+	'libs/FileSaver'
+], function ($, _, Backbone, saveAs){
 	return Backbone.Model.extend({
 		
 		defaults: {
@@ -26,6 +27,8 @@ define('models/TextFile',[
 				var file = attrib.file;
 				var reader = new FileReader();
 				this.set('file', file);
+				this.set('id',Math.random());
+				this.set('filename', file.name);
 				var ext = /\.[^.]+$/.exec(file.name) || [""];
 				this.set('fileExt', ext[0]);
 				reader.onload = _.bind(function(file, event) {
@@ -44,6 +47,20 @@ define('models/TextFile',[
 		
 		sync: function(method, model, options) {
 			console.log("method: %s, model: %o, options: %o",method,model,options);
+			switch (method) {
+				case 'create':
+				case 'update':
+					model.save(options);
+				break;
+				default:
+					console.log("Not a supported method.");
+			}
+		},
+		
+		save: function(options) {
+			var file = this.get('file');
+			var blob = new Blob([this.get('text')],{type: file.type});
+			saveAs(blob,this.get('filename'));
 		}
 	});
 });
